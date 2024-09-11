@@ -11,8 +11,7 @@ class signup extends StatefulWidget {
 
 class _signupState extends State<signup> {
    final _formKey =GlobalKey<FormState>();
-   final _formkeypas=GlobalKey<FormState>();
-   final _formkeycpas=GlobalKey<FormState>();
+  
    
     bool _isObscured = true; 
     bool _isObscuredcpas=true; 
@@ -24,21 +23,21 @@ class _signupState extends State<signup> {
     return Scaffold(appBar: AppBar(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30,),
-        child: Column(
-          children: [
-            Container(
-              child: Text("User Registration",style: TextStyle(
-                fontWeight:FontWeight.bold,
-                fontSize: 35,
-                   
-              ),),
-              
-            ),
-            SizedBox(height: 50,),
-// email
-            Form(
-              key: _formkeypas,
-              child: TextFormField(
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              Container(
+                child: Text("User Registration",style: TextStyle(
+                  fontWeight:FontWeight.bold,
+                  fontSize: 35,
+                     
+                ),),
+                
+              ),
+              SizedBox(height: 40,),
+ // email
+              TextFormField(
                  
                  controller: namcontroller,
                  
@@ -62,18 +61,18 @@ class _signupState extends State<signup> {
                 validator: (value) {
                   if ( value==null || value.isEmpty ){
                   return "enter the email";}
+                  else if (!namcontroller.text.contains("@")){
+                    return "missing @";
+                  }
                   else {
                     return null;
                   }
                 },
                 
               ),
-            ),
-            SizedBox(height: 12,),
+              SizedBox(height: 12,),
  // password textformfield
-            Form(
-              key: _formKey,
-              child: TextFormField(
+              TextFormField(
                 controller: namcontrollerpas,
                 obscureText: _isObscured,
                 decoration: InputDecoration(
@@ -111,12 +110,9 @@ class _signupState extends State<signup> {
                 },
                 
               ),
-            ),
-              SizedBox(height: 12,),
-  // confirm password textformfield
-            Form(
-              key: _formkeycpas,
-              child: TextFormField(
+                SizedBox(height: 12,),
+   // confirm password textformfield
+              TextFormField(
                 controller: namcontrollercon,
                 obscureText: _isObscuredcpas,
                 decoration: InputDecoration(
@@ -143,66 +139,65 @@ class _signupState extends State<signup> {
                   }, icon: Icon(_isObscuredcpas ? Icons.visibility_off : Icons.visibility))
                 ),
                 validator: (value) {
-                  if(value !=namcontrollerpas.text){
-                    return "password is not correct";
-                  }else{
-                    return null;
+                  if(value==null || value.isEmpty){
+                    return "confirm password is empty";
+                  }else if(value !=namcontrollerpas.text){
+                    return "password is not matching";
                   }
                 },
                 
               ),
-            ),
-            SizedBox(height: 30,),
-  // sign up button
-            Row(
-              children: [
-                
-                Expanded(
-                  child: SizedBox
-                  (height: 50,
-                    child: ElevatedButton(onPressed: () {
-                      setState(() {
+              SizedBox(height: 30,),
+// sign up button
+              Row(
+                children: [
+                  
+                  Expanded(
+                    child: SizedBox
+                    (height: 50,
+                      child: ElevatedButton(onPressed: () {
+                        setState(() {   
+                        });
+                        if(
+                        _formKey.currentState!.validate()){
+                         return  Navigator.pop(context, MaterialPageRoute(builder: (context) => Loginscreen()));
+                        }else{
+                          return null;
+                        }
+                       
+          
+      
                         
-                      });
-                      _formKey.currentState!.validate();
-                      _formkeypas.currentState!.validate();
-                      _formkeycpas.currentState!.validate();
-        
-                      print(namcontroller.text);
-                      print(namcontrollerpas.text);
-                      print(namcontrollercon.text);
-
-                      Navigator.pop(context, MaterialPageRoute(builder: (context) => Loginscreen()));
+                      }, child: Text("sign up",
+                      style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      ),
+                       ),
+                      style: ButtonStyle(
+                        backgroundColor: WidgetStatePropertyAll(Colors.black),
                       
-                    }, child: Text("sign up",
-                    style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    ),
-                     ),
-                    style: ButtonStyle(
-                      backgroundColor: WidgetStatePropertyAll(Colors.black),
-                    
-                    ),
+                      ),
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            Spacer(),
+                ],
+              ),
+              Spacer(),
 // text button
-           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-             children: [
-               Text("Already have an account?",
-               style: TextStyle(fontSize: 15),),
-               TextButton(onPressed: () {
-                 Navigator.pop(context, MaterialPageRoute(builder:(context) => Loginscreen(),));
-               }, child: Text("login",
-               style: TextStyle(fontSize: 15,
-               color: Colors.blue),),),
-             ],
-           ),
-          ],
+             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+               children: [
+                 Text("Already have an account?",
+                 style: TextStyle(fontSize: 15),),
+                 TextButton(onPressed: () {
+                   Navigator.pop(context, MaterialPageRoute(builder:(context) => Loginscreen(),));
+                 }, child: Text("login",
+                 style: TextStyle(fontSize: 15,
+                 color: Colors.blue),),),
+               ],
+             ),
+            ],
+          ),
         ),
       )
     );

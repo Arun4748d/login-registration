@@ -11,7 +11,7 @@ class Loginscreen extends StatefulWidget {
 
 class _LoginscreenState extends State<Loginscreen> {
       final _formKey =GlobalKey<FormState>();
-      final _formKeypd =GlobalKey<FormState>();
+  
 
       bool _isObscuredcpas=true; 
 
@@ -25,20 +25,20 @@ class _LoginscreenState extends State<Loginscreen> {
     return Scaffold( appBar: AppBar(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30),
-        child: Column(
-          children: [
-            Container(
-              child: Text("Login",style: TextStyle(fontWeight: FontWeight.bold,
-              fontSize: 35,
-              
-              ),),
-        
-            ),
-            SizedBox(height: 50,),
-// email
-            Form(
-              key: _formKey,
-              child: TextFormField(
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              Container(
+                child: Text("Login",style: TextStyle(fontWeight: FontWeight.bold,
+                fontSize: 35,
+                
+                ),),
+          
+              ),
+              SizedBox(height: 50,),
+          // email
+              TextFormField(
                
                controller: namcontroller,
                
@@ -52,7 +52,7 @@ class _LoginscreenState extends State<Loginscreen> {
                       
                   focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(18),
                   borderSide: BorderSide(color: Colors.black,width: 2)),
-
+                        
                   errorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(18),
                     borderSide: BorderSide(color: Colors.black,width: 2),),
                 
@@ -72,14 +72,11 @@ class _LoginscreenState extends State<Loginscreen> {
                 
                 
               },
-            
+                            
               ),
-            ),
-            SizedBox(height: 12,),
- // password textformfield
-            Form(
-              key: _formKeypd,
-              child: TextFormField(
+              SizedBox(height: 12,),
+           // password textformfield
+              TextFormField(
                  obscureText: _isObscuredcpas,
                 controller: namcontrollerpd,
                 decoration: InputDecoration(
@@ -92,13 +89,13 @@ class _LoginscreenState extends State<Loginscreen> {
               
                   focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(18),
                   borderSide: BorderSide(color: Colors.black,width: 2),),
-
+                        
                    errorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(18),
                     borderSide: BorderSide(color: Colors.black,width: 2),),
                 
                     focusedErrorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(18),
                     borderSide: BorderSide(color: Colors.black,width: 2),),
-
+                        
                     suffix: IconButton(onPressed: (){
                       setState(() {
                         _isObscuredcpas=!_isObscuredcpas;
@@ -119,58 +116,57 @@ class _LoginscreenState extends State<Loginscreen> {
                          
                        
               ),
-            ),
-// forget password  
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                TextButton(onPressed: () {
-                  
-                }, child: Text("forget password")),
-              ],
-            ),
-            SizedBox(height: 20,),
-// submit button
-            Row(
-              children: [
-                Expanded(
-                  child: ElevatedButton(onPressed: (){
-                    setState(() {
+          // forget password  
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(onPressed: () {
+                    
+                  }, child: Text("forget password")),
+                ],
+              ),
+              SizedBox(height: 20,),
+          // submit button
+              Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton(onPressed: (){
+                      setState(() {
+                       
+                      });
+                          
+                       _formKey.currentState!.validate();
                      
-                    });
-                        
-                       print(namcontroller.text);
-                     _formKey.currentState!.validate();
-                     _formKeypd.currentState!.validate();
-
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => Homescreen(),));
-                  }, child: Text("submit",style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                  ),),
-                  style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(Colors.black)),),
-                ),
-              ],
-            ),
-            Spacer(),
-// text button
-             Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-             children: [
-               Text("dont have an account?",
-               style: TextStyle(fontSize: 15),),
-               TextButton(onPressed: () {
-                 setState(() {
-                   
-                 });
-                 Navigator.push(context, MaterialPageRoute(builder: (context) => signup(),));
-               }, child: Text("registeration",
-               style: TextStyle(fontSize: 15,
-               color: Colors.blue),),),
-             ],
-           ),
-          ],
+          
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => Homescreen(),));
+                    }, child: Text("submit",style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),),
+                    style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(Colors.black)),),
+                  ),
+                ],
+              ),
+              Spacer(),
+          // text button
+               Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+               children: [
+                 Text("dont have an account?",
+                 style: TextStyle(fontSize: 15),),
+                 TextButton(onPressed: () {
+                   setState(() {
+                     
+                   });
+                   Navigator.push(context, MaterialPageRoute(builder: (context) => signup(),));
+                 }, child: Text("registeration",
+                 style: TextStyle(fontSize: 15,
+                 color: Colors.blue),),),
+               ],
+             ),
+            ],
+          ),
         ),
       ),
     );
